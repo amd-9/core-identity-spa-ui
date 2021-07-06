@@ -42,13 +42,21 @@ namespace IdentityServer
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddIdentityServer()                
+            services.AddIdentityServer(options =>
+                // spa user interaction app
+                {
+                    options.UserInteraction.LoginUrl = "http://localhost:3000";
+                    options.UserInteraction.ErrorUrl = "http://localhost:3000/error";
+                    options.UserInteraction.LogoutUrl = "http://localhost:3000/logout";
+                })
                 .AddAspNetIdentity<IdentityUser>()
-                .AddConfigurationStore(options => {
+                .AddConfigurationStore(options =>
+                {
                     options.ConfigureDbContext = buider => buider.UseSqlite(
                         connectionString, opt => opt.MigrationsAssembly(migrationsAssembly));
                 })
-                .AddOperationalStore(options => {
+                .AddOperationalStore(options =>
+                {
                     options.ConfigureDbContext = buider => buider.UseSqlite(
                         connectionString, opt => opt.MigrationsAssembly(migrationsAssembly));
                 })
