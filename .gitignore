@@ -3,6 +3,12 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Jetbrains Rider .idea folter
+.idea/
+
+# Sqlite database files
+*.db
+
 # User-specific files
 *.rsuser
 *.suo
